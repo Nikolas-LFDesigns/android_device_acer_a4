@@ -1,0 +1,19 @@
+diff --git a/external/mesa3d/src/glsl/linker.cpp b/external/mesa3d/src/glsl/linker.cpp
+index f8b6962..f31e5b5 100644
+--- a/external/mesa3d/src/glsl/linker.cpp
++++ b/external/mesa3d/src/glsl/linker.cpp
+@@ -67,6 +67,7 @@
+ #include <cstdio>
+ #include <cstdarg>
+ #include <climits>
++#include <stddef.h>
+ 
+ #include <pixelflinger2/pixelflinger2_interface.h>
+ 
+@@ -1762,4 +1763,4 @@ done:
+    }
+ 
+    //hieralloc_free(mem_ctx);
+-}
+\ No newline at end of file
++}

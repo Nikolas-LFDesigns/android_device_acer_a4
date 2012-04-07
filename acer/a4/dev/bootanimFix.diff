@@ -1,0 +1,107 @@
+diff --git a/frameworks/base/cmds/bootanimation/BootAnimation.cpp b/frameworks/base/cmds/bootanimation/BootAnimation.cpp
+index d95184a..437e26c 100644
+--- a/frameworks/base/cmds/bootanimation/BootAnimation.cpp
++++ b/frameworks/base/cmds/bootanimation/BootAnimation.cpp
+@@ -42,7 +42,6 @@
+ #include <surfaceflinger/ISurfaceComposerClient.h>
+ 
+ #include <core/SkBitmap.h>
+-#include <core/SkStream.h>
+ #include <images/SkImageDecoder.h>
+ 
+ #include <GLES/gl.h>
+@@ -151,15 +150,9 @@ status_t BootAnimation::initTexture(void* buffer, size_t len)
+     //StopWatch watch("blah");
+ 
+     SkBitmap bitmap;
+-    SkMemoryStream  stream(buffer, len);
+-    SkImageDecoder* codec = SkImageDecoder::Factory(&stream);
+-    codec->setDitherImage(false);
+-    if (codec) {
+-        codec->decode(&stream, &bitmap,
+-                SkBitmap::kRGB_565_Config,
+-                SkImageDecoder::kDecodePixels_Mode);
+-        delete codec;
+-    }
++    SkImageDecoder::DecodeMemory(buffer, len,
++            &bitmap, SkBitmap::kRGB_565_Config,
++            SkImageDecoder::kDecodePixels_Mode);
+ 
+     // ensure we can call getPixels(). No need to call unlock, since the
+     // bitmap will go out of scope when we return from this method.
+@@ -226,7 +219,9 @@ status_t BootAnimation::readyToRun() {
+ 
+     sp<Surface> s = control->getSurface();
+ 
++//KAI fix
+     // initialize opengl and egl
++/*
+     const EGLint attribs[] = {
+             EGL_RED_SIZE,   8,
+             EGL_GREEN_SIZE, 8,
+@@ -234,6 +229,16 @@ status_t BootAnimation::readyToRun() {
+             EGL_DEPTH_SIZE, 0,
+             EGL_NONE
+     };
++*/
++    // initialize opengl and egl
++    const EGLint attribs[] = {
++            EGL_RED_SIZE,   5,
++            EGL_GREEN_SIZE, 6,
++            EGL_BLUE_SIZE,  5,
++            EGL_DEPTH_SIZE, 0,
++            EGL_NONE
++    };
++
+     EGLint w, h, dummy;
+     EGLint numConfigs;
+     EGLConfig config;
+@@ -350,10 +355,10 @@ bool BootAnimation::android()
+         glEnable(GL_BLEND);
+         glBindTexture(GL_TEXTURE_2D, mAndroid[0].name);
+         glDrawTexiOES(xc, yc, 0, mAndroid[0].w, mAndroid[0].h);
+-
+-        EGLBoolean res = eglSwapBuffers(mDisplay, mSurface);
+-        if (res == EGL_FALSE)
+-            break;
++//KAI fix
++//        EGLBoolean res = eglSwapBuffers(mDisplay, mSurface);
++//        if (res == EGL_FALSE)
++//            break;
+ 
+         // 12fps: don't animate too fast to preserve CPU
+         const nsecs_t sleepTime = 83333 - ns2us(systemTime() - now);
+@@ -471,16 +476,13 @@ bool BootAnimation::movie()
+     for (int i=0 ; i<pcount && !exitPending() ; i++) {
+         const Animation::Part& part(animation.parts[i]);
+         const size_t fcount = part.frames.size();
+-        const int noTextureCache = ((animation.width * animation.height * fcount) >
+-                                 48 * 1024 * 1024) ? 1 : 0;
+-
+         glBindTexture(GL_TEXTURE_2D, 0);
+ 
+         for (int r=0 ; !part.count || r<part.count ; r++) {
+             for (int j=0 ; j<fcount && !exitPending(); j++) {
+                 const Animation::Frame& frame(part.frames[j]);
+ 
+-                if (r > 0 && !noTextureCache) {
++                if (r > 0) {
+                     glBindTexture(GL_TEXTURE_2D, frame.tid);
+                 } else {
+                     if (part.count != 1) {
+@@ -515,14 +517,12 @@ bool BootAnimation::movie()
+                 long wait = ns2us(frameDuration);
+                 if (wait > 0)
+                     usleep(wait);
+-                if (noTextureCache)
+-                    glDeleteTextures(1, &frame.tid);
+             }
+             usleep(part.pause * ns2us(frameDuration));
+         }
+ 
+         // free the textures for this part
+-        if (part.count != 1 && !noTextureCache) {
++        if (part.count != 1) {
+             for (int j=0 ; j<fcount ; j++) {
+                 const Animation::Frame& frame(part.frames[j]);
+                 glDeleteTextures(1, &frame.tid);
