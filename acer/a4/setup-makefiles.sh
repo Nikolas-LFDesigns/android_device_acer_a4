@@ -74,7 +74,7 @@ USE_CAMERA_STUB := false
 
 EOF
 
-mkdir -p ../../../vendor/acer/$DEVICE/overlay/packages/apps/Launcher2/res/layout
+mkdir -p ../../../vendor/acer/$DEVICE/overlay/packages/apps/Trebuchet/res/values
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g > ../../../vendor/acer/$DEVICE/overlay/packages/apps/Trebuchet/res/values/config.xml
 <!-- this enable hwacceleration in Trebuchet Launcher -->
 

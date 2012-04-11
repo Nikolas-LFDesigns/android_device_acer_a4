@@ -1,0 +1,18 @@
+diff --git a/audio/msm7x30/Android.mk b/audio/msm7x30/Android.mk
+index 4956c31..8e70ab3 100644
+--- a/audio/msm7x30/Android.mk
++++ b/audio/msm7x30/Android.mk
+@@ -2,6 +2,7 @@
+ 
+ #AUDIO_POLICY_TEST := true
+ #ENABLE_AUDIO_DUMP := true
++ifeq ($(TARGET_USES_OLD_AUDIO_MSM7X30),)
+ 
+ LOCAL_PATH := $(call my-dir)
+ 
+@@ -99,3 +100,5 @@ endif
+ LOCAL_C_INCLUDES := hardware/libhardware_legacy/audio
+ 
+ include $(BUILD_SHARED_LIBRARY)
++
++endif #TARGET_USES_OLD_AUDIO_MSM7X30
