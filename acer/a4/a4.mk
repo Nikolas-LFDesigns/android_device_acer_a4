@@ -20,7 +20,7 @@
 #
 
 # Enabling Ring Tones
-include frameworks/base/data/sounds/OriginalAudio.mk
+include frameworks/base/data/sounds/NewAudio.mk
 
 # Speed up scrolling
 PRODUCT_PROPERTY_OVERRIDES += \

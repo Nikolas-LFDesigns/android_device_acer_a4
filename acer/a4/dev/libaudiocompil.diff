@@ -1,7 +1,7 @@
-diff --git a/audio/msm7x30/Android.mk b/audio/msm7x30/Android.mk
+diff --git a/hardware/qcom/media/audio/msm7x30/Android.mk b/hardware/qcom/media/audio/msm7x30/Android.mk
 index 4956c31..8e70ab3 100644
---- a/audio/msm7x30/Android.mk
-+++ b/audio/msm7x30/Android.mk
+--- a/hardware/qcom/media/audio/msm7x30/Android.mk
++++ b/hardware/qcom/media/audio/msm7x30/Android.mk
 @@ -2,6 +2,7 @@
  
  #AUDIO_POLICY_TEST := true
