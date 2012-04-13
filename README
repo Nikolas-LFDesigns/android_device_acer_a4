@@ -10,7 +10,9 @@ Copyright (C) 2011-2012 The CyanogenMod Project
 
 As start, sync Cyanogen Mod sources like described on
 http://wiki.cyanogenmod.com/wiki/Nexus_One:_Compile_CyanogenMod_%28Linux%29
-When done, copy whole acer folder to [your CM path(recommended android/system on home)]/device.
+BE CAREFUL: to reposync CM9 you should pick ics branch instead of gingerbread in command repo init (last param: -b ics instead of -b gingerbread)
+
+When done, copy whole acer folder to [your CM path(recommended android-ics/system on home)]/device.
 PREPARING BUILD:
 fire up Apply-Patch.sh in dev folder, that contains all necessary makefiles for quickstart with that devicetree;
 plug in your Metal (make sure that you have latest rom and adb is set up) and fire up extract-files.sh;
