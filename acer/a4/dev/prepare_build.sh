@@ -62,6 +62,7 @@ rm ./system/bin/wipe
 #linked xbinaries
 rm ./system/xbin/[
 rm ./system/xbin/[[
+rm ./system/xbin/adjtimex
 rm ./system/xbin/arp
 rm ./system/xbin/ash
 rm ./system/xbin/awk
@@ -226,6 +227,7 @@ rm ./system/xbin/sysctl
 rm ./system/xbin/tac
 rm ./system/xbin/tail
 rm ./system/xbin/tar
+rm ./system/xbin/taskset
 rm ./system/xbin/tee
 rm ./system/xbin/telnet
 rm ./system/xbin/telnetd
