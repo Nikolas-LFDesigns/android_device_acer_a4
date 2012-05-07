@@ -127,17 +127,6 @@ PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/egl/libsc-a2xx.so:/system/lib/libsc-a2xx.so \
     device/acer/a4/prebuilt/egl/libgsl.so:/system/lib/libgsl.so 
 
-#Desire Z camera libraries
-PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/camera/libcamera.so:/obj/lib/libcamera.so \
-    device/acer/a4/prebuilt/camera/liboemcamera.so:/obj/lib/liboemcamera.so \
-    device/acer/a4/prebuilt/camera/libmmjpeg.so:/obj/lib/libmmjpeg.so \
-    device/acer/a4/prebuilt/camera/libcamera.so:/system/lib/libcamera.so \
-    device/acer/a4/prebuilt/camera/libgemini.so:/system/lib/libgemini.so \
-    device/acer/a4/prebuilt/camera/libmmipl.so:/system/lib/libmmipl.so \
-    device/acer/a4/prebuilt/camera/libmmjpeg.so:/system/lib/libmmjpeg.so \
-    device/acer/a4/prebuilt/camera/liboemcamera.so:/system/lib/liboemcamera.so \
-
 #Wifi Firmware
 PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/modules/ar6000.ko:system/wifi/ar6000.ko \

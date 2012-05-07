@@ -13,7 +13,7 @@
 /dev/msm_a2dp_in    0660   system       audio
 /dev/msm_pcm_out    0660   system       audio
 /dev/snd/controlC0  0660   system       audio
-/dev/pmem_smipool*  0660   system     camera
+/dev/pmem_smipool*  0660   system       camera
 /dev/oncrpc/*       0777   radio        radio
 /dev/smem_log       0777   radio        radio
 /dev/smb380         0660   system       system
@@ -50,4 +50,4 @@
 /dev/msm_a2dp_in    0640  system       audio
 /dev/msm_amrnb_in   0640  system       audio
 
-/dev/msm_camera/*   0666   system     camera
+/dev/msm_camera/*   0666  system       camera
