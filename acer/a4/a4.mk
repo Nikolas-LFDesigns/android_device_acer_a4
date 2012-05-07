@@ -19,9 +19,6 @@
 # not specialized for any geography.
 #
 
-# Enabling Ring Tones
-include frameworks/base/data/sounds/NewAudio.mk
-
 # Speed up scrolling
 PRODUCT_PROPERTY_OVERRIDES += \
     windowsmgr.max_events_per_sec=60
@@ -171,10 +168,3 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/vold.fstab:system/etc/vold.fstab
-
-#PRODUCT_COPY_FILES += \
-#    device/acer/a4/prebuilt/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
-#    device/acer/a4/prebuilt/modules/oprofile.ko:system/lib/modules/oprofile.ko \
-#    device/acer/a4/prebuilt/modules/reset_modem.ko:system/lib/modules/reset_modem.ko \
-#    device/acer/a4/prebuilt/modules/sch_dsmark.ko:system/lib/modules/sch_dsmark.ko \
-#    device/acer/a4/prebuilt/modules/tun.ko:system/lib/modules/tun.ko
