@@ -75,10 +75,6 @@ PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/wlan_tool:/system/bin/wlan_tool \
     device/acer/a4/prebuilt/hostapd.conf:/system/etc/wifi/hostapd.conf \
     device/acer/a4/prebuilt/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
-#LG Swift Libril
-PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/libril.so:/obj/lib/libril.so \
-    device/acer/a4/prebuilt/libril.so:/system/lib/libril.so 
 
 PRODUCT_PACKAGES += \
     librs_jni \
