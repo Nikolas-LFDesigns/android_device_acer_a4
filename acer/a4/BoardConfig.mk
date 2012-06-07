@@ -30,10 +30,6 @@ WPA_SUPPLICANT_VERSION           := VER_0_6_X
 WIFI_DRIVER_MODULE_PATH          := /system/wifi/ar6000.ko
 WIFI_DRIVER_MODULE_NAME          := ar6000
 
-#make compiler to use libaudio over device tree 
-#same as on cm7: TARGET_PROVIDES_LIBAUDIO
-TARGET_USES_OLD_AUDIO_MSM7X30  := true
-
 BOARD_HAVE_BLUETOOTH     := true
 BOARD_HAVE_BLUETOOTH_CUSTOM_HCIATTACH := true
 BOARD_VENDOR_USE_AKMD := akm8975
