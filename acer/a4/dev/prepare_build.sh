@@ -69,6 +69,7 @@ rm ./system/xbin/awk
 rm ./system/xbin/base64
 rm ./system/xbin/basename
 rm ./system/xbin/bbconfig
+rm ./system/xbin/blkid
 rm ./system/xbin/blockdev
 rm ./system/xbin/brctl
 rm ./system/xbin/bunzip2

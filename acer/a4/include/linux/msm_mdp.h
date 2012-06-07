@@ -1,6 +1,7 @@
 /* include/linux/msm_mdp.h
  *
  * Copyright (C) 2007 Google Incorporated
+ * Copyright (c) 2012 Code Aurora Forum. All rights reserved.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -65,7 +66,6 @@
 #define MSMFB_MDP_PP _IOWR(MSMFB_IOCTL_MAGIC, 156, struct msmfb_mdp_pp)
 
 #define FB_TYPE_3D_PANEL 0x10101010
-#define MDP_BORDERFILL_SUPPORTED	0x00010000
 #define MDP_IMGTYPE2_START 0x10000
 #define MSMFB_DRIVER_VERSION	0xF9E8D701
 
@@ -78,6 +78,7 @@ enum {
 	MDP_RGB_565,      /* RGB 565 planer */
 	MDP_XRGB_8888,    /* RGB 888 padded */
 	MDP_Y_CBCR_H2V2,  /* Y and CbCr, pseudo planer w/ Cb is in MSB */
+	MDP_Y_CBCR_H2V2_ADRENO,
 	MDP_ARGB_8888,    /* ARGB 888 */
 	MDP_RGB_888,      /* RGB 888 planer */
 	MDP_Y_CRCB_H2V2,  /* Y and CrCb, pseudo planer w/ Cr is in MSB */
@@ -139,6 +140,7 @@ enum {
 #define MDP_OV_PLAY_NOWAIT		0x00200000
 #define MDP_SOURCE_ROTATED_90		0x00100000
 #define MDP_DPP_HSIC			0x00080000
+#define MDP_BACKEND_COMPOSITION		0x00040000
 #define MDP_BORDERFILL_SUPPORTED	0x00010000
 #define MDP_SECURE_OVERLAY_SESSION      0x00008000
 #define MDP_MEMORY_ID_TYPE_FB		0x00001000
@@ -336,6 +338,10 @@ struct mdp_pcc_cfg_data {
 	struct mdp_pcc_coeff r, g, b;
 };
 
+#define MDP_CSC_FLAG_ENABLE	0x1
+#define MDP_CSC_FLAG_YUV_IN	0x2
+#define MDP_CSC_FLAG_YUV_OUT	0x4
+
 struct mdp_csc_cfg {
 	/* flags for enable CSC, toggling RGB,YUV input/output */
 	uint32_t flags;
@@ -440,19 +446,5 @@ struct msmfb_mixer_info_req {
 };
 
 
-#ifdef __KERNEL__
-
-/* get the framebuffer physical address information */
-int get_fb_phys_info(unsigned long *start, unsigned long *len, int fb_num);
-struct fb_info *msm_fb_get_writeback_fb(void);
-int msm_fb_writeback_init(struct fb_info *info);
-int msm_fb_writeback_start(struct fb_info *info);
-int msm_fb_writeback_queue_buffer(struct fb_info *info,
-		struct msmfb_data *data);
-int msm_fb_writeback_dequeue_buffer(struct fb_info *info,
-		struct msmfb_data *data);
-int msm_fb_writeback_stop(struct fb_info *info);
-int msm_fb_writeback_terminate(struct fb_info *info);
-#endif
 
 #endif /*_MSM_MDP_H_*/
