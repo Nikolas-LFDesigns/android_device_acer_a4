@@ -197,6 +197,11 @@
         minSampleRate="8000" maxSampleRate="8000"
         minChannels="1" maxChannels="1" />
 
+    <AudioEncoderCap name="aac" enabled="true"
+        minBitRate="5525" maxBitRate="156000"
+        minSampleRate="8000" maxSampleRate="44100"
+        minChannels="1" maxChannels="2" />
+
     <!--
         FIXME:
         We do not check decoder capabilities at present
