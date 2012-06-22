@@ -123,6 +123,12 @@ PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/egl/libsc-a2xx.so:/system/lib/libsc-a2xx.so \
     device/acer/a4/prebuilt/egl/libgsl.so:/system/lib/libgsl.so 
 
+#libs needed for camera
+$(call inherit-product, device/acer/a4/prebuilt/camera/camera.mk)
+#patch will add a new camera.mk at camera-htc folder
+#it will replace original camera.mk at runtime so build could use desire z libs instead of stock
+$(call inherit-product-if-exists, device/acer/a4/prebuilt/camera-htc/camera.mk)
+
 #Wifi Firmware
 PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/modules/ar6000.ko:system/wifi/ar6000.ko \

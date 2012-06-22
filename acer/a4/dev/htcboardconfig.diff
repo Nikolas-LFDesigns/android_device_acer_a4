@@ -1,0 +1,12 @@
+diff --git a/device/acer/a4/BoardConfig.mk b/device/acer/a4/BoardConfig.mk
+index 7c65955..51c043c 100644
+--- a/device/acer/a4/BoardConfig.mk
++++ b/device/acer/a4/BoardConfig.mk
+@@ -67,6 +67,7 @@ ENABLE_WTF_USE_ACCELERATED_COMPOSITING := true
+ #camera
+ BOARD_CAMERA_USE_GETBUFFERINFO := true
+ COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
++BOARD_USES_HTC_CAMERA:= true
+ #BOARD_OVERLAY_FORMAT_YCbCr_420_SP := true
+ 
+ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := paso

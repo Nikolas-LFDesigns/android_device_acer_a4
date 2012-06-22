@@ -72,12 +72,8 @@ adb pull /system/lib/libdivxdrmdecrypt.so ../../../vendor/$MANUFACTURER/$DEVICE/
 adb pull /system/lib/libDxAndroidSpecific.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libDxAndroidSpecific.so
 adb pull /system/lib/libDxDrmCAPI.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libDxDrmCAPI.so
 adb pull /system/lib/libDxDrmJava.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libDxDrmJava.so
-adb pull /system/lib/libgemini.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libgemini.so
-adb pull /system/lib/libmmipl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmmipl.so
 adb pull /system/lib/libmm-abl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmm-abl.so
-adb pull /system/lib/libmmjpeg.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmmjpeg.so
 adb pull /system/lib/libsensors_algos.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libsensors_algos.so
-adb pull /system/lib/liboemcamera.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/liboemcamera.so
 #-----------------------------------------
 adb pull /system/bin/akmd8975 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/akmd8975
 adb pull /system/bin/artagent ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/artagent
@@ -113,8 +109,6 @@ adb pull /system/bin/wmiconfig ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 # Prebuilt libraries that are needed to build open-source libraries
 PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/libaudioalsa.so:obj/lib/libaudioalsa.so \\
-    vendor/acer/__DEVICE__/proprietary/libmmjpeg.so:/obj/lib/libmmjpeg.so \\
-    vendor/acer/__DEVICE__/proprietary/liboemcamera.so:obj/lib/liboemcamera.so \\
     vendor/acer/__DEVICE__/proprietary/libril.so:obj/lib/libril.so \\
 
 
@@ -177,11 +171,7 @@ PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/libDxAndroidSpecific.so:/system/lib/libDxAndroidSpecific.so \\
     vendor/acer/__DEVICE__/proprietary/libDxDrmCAPI.so:/system/lib/libDxDrmCAPI.so \\
     vendor/acer/__DEVICE__/proprietary/libDxDrmJava.so:/system/lib/libDxDrmJava.so \\
-    vendor/acer/__DEVICE__/proprietary/libgemini.so:/system/lib/libgemini.so \\
     vendor/acer/__DEVICE__/proprietary/libmm-abl.so:/system/lib/libmm-abl.so \\
-    vendor/acer/__DEVICE__/proprietary/libmmipl.so:/system/lib/libmmipl.so \\
-    vendor/acer/__DEVICE__/proprietary/libmmjpeg.so:/system/lib/libmmjpeg.so \\
-    vendor/acer/__DEVICE__/proprietary/liboemcamera.so:/system/lib/liboemcamera.so \\
     vendor/acer/__DEVICE__/proprietary/libsensors_algos.so:/system/lib/libsensors_algos.so \\
 #binaries
 PRODUCT_COPY_FILES += \\
