@@ -49,3 +49,4 @@ hwui.disable_vsync=true
 hwui.print_config=choice
 debug.enabletr=false
 
+persist.sys.usb.config= mass_storage,adb
