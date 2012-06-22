@@ -12,7 +12,7 @@ LOCAL_CFLAGS+= -DHW_ENCODE
 LOCAL_HAL_FILES := QualcommCamera.cpp QualcommCameraHardware.cpp
 
 LOCAL_C_INCLUDES += \
-        frameworks/base/services/camera/libcameraservice #
+        frameworks/base/services/camera/libcameraservice
 
 LOCAL_SRC_FILES := $(LOCAL_HAL_FILES)
 

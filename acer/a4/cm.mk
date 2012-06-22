@@ -18,7 +18,7 @@ PRODUCT_BRAND := acer
 PRODUCT_DEVICE := a4
 PRODUCT_MODEL := Liquid MT
 PRODUCT_MANUFACTURER := Acer
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=a4_generic1 BUILD_ID=IMM76D BUILD_FINGERPRINT="yakju-user 4.0.4 IMM76D 235179 release-keys" PRIVATE_BUILD_DESC="ro.build.fingerprint=google/yakju/maguro:4.0.4/IMM76D/235179:user/release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=a4_generic1 BUILD_ID=IMM76D BUILD_FINGERPRINT="full_crespo-userdebug 4.0.4 IMM76L 4.0.4 release-keys" PRIVATE_BUILD_DESC="ro.build.fingerprint=google/full_crespo/crespo:4.0.4/IMM76L/4.0.4:userdebug/release-keys"
 
 # Release name and versioning
 PRODUCT_RELEASE_NAME := a4
