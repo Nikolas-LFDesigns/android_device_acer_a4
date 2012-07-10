@@ -9,8 +9,7 @@ Copyright (C) 2011-2012 The CyanogenMod Project
       http://www.apache.org/licenses/LICENSE-2.0
 
 As start, sync Cyanogen Mod sources like described on
-http://wiki.cyanogenmod.com/wiki/Nexus_One:_Compile_CyanogenMod_%28Linux%29
-BE CAREFUL: to reposync CM9 you should pick ics branch instead of gingerbread in command repo init (last param: -b ics instead of -b gingerbread)
+http://wiki.cyanogenmod.com/wiki/Galaxy_Nexus_(GSM):_Compile_CyanogenMod_(Linux)
 
 When done, copy whole acer folder to [your CM path(recommended android-ics/system on home)]/device.
 PREPARING BUILD:
