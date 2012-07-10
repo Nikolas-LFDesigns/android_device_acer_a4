@@ -138,6 +138,11 @@ rm ./system/xbin/insmod
 rm ./system/xbin/install
 rm ./system/xbin/iostat
 rm ./system/xbin/ip
+rm ./system/xbin/iwconfig
+rm ./system/xbin/iwgetid
+rm ./system/xbin/iwlist
+rm ./system/xbin/iwpriv
+rm ./system/xbin/iwspy
 rm ./system/xbin/kill
 rm ./system/xbin/killall
 rm ./system/xbin/killall5

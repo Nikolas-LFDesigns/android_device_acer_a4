@@ -24,6 +24,9 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+
+import init.paso.usb.rc
+
 on fs
     # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
@@ -31,16 +34,6 @@ on fs
     mount yaffs2 mtd@system /system ro remount
     mount yaffs2 mtd@userdata /data nosuid nodev
     mount yaffs2 mtd@cache /cache nosuid nodev
-
-    service qmuxd /system/bin/qmuxd
-       user radio
-       group radio
-    service netmgrd /system/bin/netmgrd
-       user radio
-       group radio
-    on property:ro.use_data_netmgrd=false
-        # netmgr not supported on specific target
-    stop netmgrd
 
 on early-init
     export EXTERNAL_STORAGE /mnt/sdcard
@@ -51,6 +44,7 @@ on early-init
     mkdir /sd-ext 0771 system system
 
 on post-fs
+    mkdir /data/radio 0770 radio radio
 # allow net_raw to have access to /dev/socket directory
     chown root net_raw /dev/socket
     chmod 0775 /dev/socket
@@ -59,9 +53,23 @@ on post-fs
     chmod 0770 /system/etc/wifi
     chmod 0660 /system/etc/wifi/wpa_supplicant.conf
     chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
+
+    service qmuxd /system/bin/qmuxd
+       class main
+       user root
+       group root qcom_oncrpc
+
+    service netmgrd /system/bin/netmgrd
+       class main
+       user radio
+       group radio
+
+    on property:ro.use_data_netmgrd=false
+        # netmgr not supported on specific target
+       stop netmgrd
+
 on boot
-    mkdir /data/radio 0770 radio radio
-    chmod 2770 /data/radio
+
 #wpa_supplicant control socket for android wifi.c (android private socket)
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -69,7 +77,6 @@ on boot
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     chown wifi wifi /data/misc/wifi
     chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
-
     mkdir /data/misc/dhcp 0770 dhcp dhcp
 # atheros ---
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -174,14 +181,6 @@ service hciattach /system/bin/sh /system/etc/init.paso.bt.sh
 
 service port-bridge /system/bin/port-bridge /dev/smd0 /dev/ttyGS0
 
-#service qmuxd /system/bin/qmuxd
-
-#service netmgrd /system/bin/netmgrd
-
-#on property:ro.use_data_netmgrd=false
-    # netmgr not supported on specific target
-#    stop netmgrd
-
 # Atheros +++
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -puse_p2p_group_interface=1
     class main
@@ -226,13 +225,8 @@ service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
     group wifi
     oneshot
     disabled
-# Atheros ---
 
-service fm_dl /system/bin/sh /system/etc/init.paso.fm.sh
-    user system
-    group system qcom_oncrpc
-    disabled
-    oneshot
+# Atheros ---
 
 service paso-sh /system/bin/sh /init.paso.sh
     user root

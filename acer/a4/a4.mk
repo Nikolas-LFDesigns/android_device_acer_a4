@@ -34,6 +34,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_COPY_FILES += \
     device/acer/a4/init.paso.rc:root/init.paso.rc \
+    device/acer/a4/init.paso.usb.rc:root/init.paso.rc \
     device/acer/a4/init.paso.sh:root/init.paso.sh \
     device/acer/a4/init.paso.post_boot.sh:root/init.paso.post_boot.sh \
     device/acer/a4/ueventd.paso.rc:root/ueventd.paso.rc
@@ -102,10 +103,6 @@ PRODUCT_PACKAGES += \
     libQcomUI \
     libtilerenderer \
     liboverlay
-
-#usb masstorage enabler package
-#PRODUCT_COPY_FILES += \
-#    device/acer/a4/prebuilt/UsbMassStorageToggle.apk:system/app/UsbMassStorageToggle.apk \
 
 #Touchscreen and keyboard-related ICS stuff
 PRODUCT_COPY_FILES += \

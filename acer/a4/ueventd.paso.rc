@@ -1,7 +1,15 @@
 # Set device permission here
 
-# the DIAG device node is world writable/readable.
-/dev/diag           0666   root         root
+/dev/smdcntl6             0640   radio      radio
+/dev/sdioctl0             0640   radio      radio
+/dev/sdioctl1             0640   radio      radio
+/dev/sdioctl2             0640   radio      radio
+/dev/sdioctl3             0640   radio      radio
+/dev/sdioctl4             0640   radio      radio
+/dev/sdioctl4             0640   radio      radio
+/dev/sdioctl5             0640   radio      radio
+/dev/sdioctl6             0640   radio      radio
+/dev/sdioctl7             0640   radio      radio
 
 # gpu driver for adreno200 is globally accessible
 /dev/kgsl-3d0       0666   root         root
