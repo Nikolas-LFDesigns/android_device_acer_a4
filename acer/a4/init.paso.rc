@@ -219,9 +219,13 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service hostapd /system/bin/wlan_tool
-    disabled
+service hostapd /system/bin/hostapd /data/misc/wifi/hostapd.conf
+    class main
+    socket hostapd_wl0.1 dgram 660 root wifi
+    user root
+    group wifi
     oneshot
+    disabled
 # Atheros ---
 
 service fm_dl /system/bin/sh /system/etc/init.paso.fm.sh

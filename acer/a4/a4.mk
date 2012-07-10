@@ -72,7 +72,6 @@ PRODUCT_COPY_FILES += \
     device/acer/a4/prebuilt/media_profiles.xml:system/etc/media_profiles.xml
 # wifi & tethering custom configs
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/wlan_tool:/system/bin/wlan_tool \
     device/acer/a4/prebuilt/hostapd.conf:/system/etc/wifi/hostapd.conf \
     device/acer/a4/prebuilt/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
 
