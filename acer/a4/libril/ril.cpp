@@ -2057,7 +2057,10 @@ static void rilEventAddWakeup(struct ril_event *ev) {
 static void sendSimStatusAppInfo(Parcel &p, int num_apps, RIL_AppStatus appStatus[]) {
         p.writeInt32(num_apps);
         startResponse;
-        for (int i = 0; i < num_apps; i++) {
+        //active card is not first but somewhere in ril cards list, searching for it 
+        for (int i = 0; i < RIL_CARD_MAX_APPS; i++) {
+          if(appStatus[i].app_type!=0){
+            LOGI("found icc card: at slot %d, type: %d", i, appStatus[i].app_type);
             p.writeInt32(appStatus[i].app_type);
             p.writeInt32(appStatus[i].app_state);
             p.writeInt32(appStatus[i].perso_substate);
@@ -2078,8 +2081,10 @@ static void sendSimStatusAppInfo(Parcel &p, int num_apps, RIL_AppStatus appStatu
                     appStatus[i].pin1_replaced,
                     appStatus[i].pin1,
                     appStatus[i].pin2);
+            closeResponse;
+            break; //single-card device, the only card found, nothing to do with others. 
+          }
         }
-        closeResponse;
 }
 
 static int responseSimStatus(Parcel &p, void *response, size_t responselen) {
@@ -2106,10 +2111,13 @@ static int responseSimStatus(Parcel &p, void *response, size_t responselen) {
         p.writeInt32(p_cur->card_state);
         p.writeInt32(p_cur->universal_pin_state);
         p.writeInt32(p_cur->gsm_umts_subscription_app_index);
-        p.writeInt32(p_cur->cdma_subscription_app_index);
-        p.writeInt32(-1);
-
-        sendSimStatusAppInfo(p, p_cur->num_applications, p_cur->applications);
+        p.writeInt32(p_cur->cdma_subscription_app_index); //may be an index for GSM subscr.
+        p.writeInt32(0);// may be both CDMA subscr. index and count, 0 as single-SIM device
+        
+        //apps count is not sent by ril, guessing by apps count
+        int appCount=p_cur->gsm_umts_subscription_app_index+
+                     p_cur->cdma_subscription_app_index;
+        sendSimStatusAppInfo(p, appCount, p_cur->applications);
     } else {
         LOGE("responseSimStatus: A RilCardStatus_v6 or _v5 expected\n");
         return RIL_ERRNO_INVALID_RESPONSE;
