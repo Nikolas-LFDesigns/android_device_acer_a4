@@ -79,7 +79,6 @@ adb pull /system/bin/akmd8975 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/
 adb pull /system/bin/artagent ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/artagent
 adb pull /system/bin/athtestcmd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/athtestcmd
 adb pull /system/bin/get_sensors_calib ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/get_sensors_calib
-adb pull /system/bin/get_wlan_mac ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/get_wlan_mac
 adb pull /system/bin/hci_qcomm_init ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/hci_qcomm_init
 adb pull /system/bin/hostapd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/hostapd
 adb pull /system/bin/hostapd_cli ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/hostapd_cli
@@ -87,7 +86,6 @@ adb pull /system/bin/hostapd_wps ../../../vendor/$MANUFACTURER/$DEVICE/proprieta
 adb pull /system/bin/netmgrd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/netmgrd
 adb pull /system/bin/port-bridge ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/port-bridge
 adb pull /system/bin/qmuxd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/qmuxd
-adb pull /system/bin/wmiconfig ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/wmiconfig
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -179,7 +177,6 @@ PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/artagent:/system/bin/artagent \\
     vendor/acer/__DEVICE__/proprietary/athtestcmd:/system/bin/athtestcmd \\
     vendor/acer/__DEVICE__/proprietary/get_sensors_calib:/system/bin/get_sensors_calib \\
-    vendor/acer/__DEVICE__/proprietary/get_wlan_mac:/system/bin/get_wlan_mac \\
     vendor/acer/__DEVICE__/proprietary/hci_qcomm_init:/system/bin/hci_qcomm_init \\
     vendor/acer/__DEVICE__/proprietary/hostapd:/system/bin/hostapd \\
     vendor/acer/__DEVICE__/proprietary/hostapd_cli:/system/bin/hostapd_cli \\
@@ -187,7 +184,6 @@ PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/netmgrd:/system/bin/netmgrd \\
     vendor/acer/__DEVICE__/proprietary/port-bridge:/system/bin/port-bridge \\
     vendor/acer/__DEVICE__/proprietary/qmuxd:/system/bin/qmuxd \\
-    vendor/acer/__DEVICE__/proprietary/wmiconfig:/system/bin/wmiconfig \\
 EOF
 
 ./setup-makefiles.sh

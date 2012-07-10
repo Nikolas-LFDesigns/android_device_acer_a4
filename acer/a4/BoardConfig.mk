@@ -20,15 +20,12 @@ TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
 # Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER      := AR6000
-#BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-#BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_ath
-#BOARD_HOSTAP_DRIVER              := WEXT
-#BOARD_HOSTAP_PRIVATE_LIB         := lib_driver_cmd_ath
-#WPA_SUPPLICANT_VERSION           := VER_0_8_X
-WPA_SUPPLICANT_VERSION           := VER_0_6_X
+BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_ath6kl
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
 WIFI_DRIVER_MODULE_PATH          := /system/wifi/ar6000.ko
 WIFI_DRIVER_MODULE_NAME          := ar6000
+BOARD_WLAN_DEVICE                := ath6kl
 
 BOARD_HAVE_BLUETOOTH     := true
 BOARD_HAVE_BLUETOOTH_CUSTOM_HCIATTACH := true
