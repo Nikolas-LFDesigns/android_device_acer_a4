@@ -17,11 +17,13 @@ ifeq ($(BOARD_USES_HTC_CAMERA), true)
 subdir_makefiles := \
 	$(LOCAL_PATH)/hciattach/Android.mk \
 	$(LOCAL_PATH)/liblights/Android.mk \
-	$(LOCAL_PATH)/libcamera-htc/Android.mk
+	$(LOCAL_PATH)/libcamera-htc/Android.mk \
+	$(LOCAL_PATH)/libril/Android.mk
 else
 subdir_makefiles := \
 	$(LOCAL_PATH)/hciattach/Android.mk \
 	$(LOCAL_PATH)/liblights/Android.mk \
-	$(LOCAL_PATH)/libcamera/Android.mk 
+	$(LOCAL_PATH)/libcamera/Android.mk \
+	$(LOCAL_PATH)/libril/Android.mk
 endif
 include $(subdir_makefiles)
