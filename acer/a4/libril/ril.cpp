@@ -86,7 +86,7 @@ namespace android {
 #define PRINTBUF_SIZE 8096
 
 // Enable RILC log
-#define RILC_LOG 0
+#define RILC_LOG 1
 
 #if RILC_LOG
     #define startRequest           sprintf(printBuf, "(")
@@ -686,6 +686,8 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
 
     // note we only check status at the end
 
+    simIO.v6.aidPtr = strdupReadString(p);
+
     status = p.readInt32(&t);
     simIO.v6.command = (int)t;
 
@@ -705,7 +707,6 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
 
     simIO.v6.data = strdupReadString(p);
     simIO.v6.pin2 = strdupReadString(p);
-    simIO.v6.aidPtr = strdupReadString(p);
 
     startRequest;
     appendPrintBuf("%scmd=0x%X,efid=0x%X,path=%s,%d,%d,%d,%s,pin2=%s,aid=%s", printBuf,
