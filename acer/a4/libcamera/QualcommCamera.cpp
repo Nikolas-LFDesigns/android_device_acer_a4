@@ -428,8 +428,8 @@ void set_callbacks(struct camera_device * device,
       camHal->notify_cb = notify_cb;
       camHal->data_cb = data_cb;
       camHal->data_cb_timestamp = data_cb_timestamp;
-      camHal->user_data = user;
       camHal->get_memory = get_memory;
+      camHal->user_data = user;
       #if 0
       if(notify_cb) {
         cam_nt_cb = cam_notify_callback;
@@ -449,7 +449,13 @@ void set_callbacks(struct camera_device * device,
         cam_dt_timestamp_cb = NULL;
       }
       #endif
-      LOGE("cam_nt_cb =%p,cam_dt_cb=%p,cam_dt_timestamp_cb=%p",  cam_nt_cb, cam_dt_cb, cam_dt_timestamp_cb);
+      LOGE("notify_cb =%p,data_cb=%p,data_cb_timestamp=%p,user_data=%p,get_memory=%p",
+      camHal->notify_cb,
+      camHal->data_cb,
+      camHal->data_cb_timestamp,
+      camHal->user_data,
+      camHal->get_memory);
+     //LOGE("cam_nt_cb =%p,cam_dt_cb=%p,cam_dt_timestamp_cb=%p",  cam_nt_cb, cam_dt_cb, cam_dt_timestamp_cb);
       hardware->setCallbacks(notify_cb,data_cb,data_cb_timestamp,get_memory, user);
     }
   }
