@@ -4254,23 +4254,24 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
             return retVal;
         }
 
-#ifdef USE_ION
+//#ifdef USE_ION
         mPreviewWindow->set_usage (mPreviewWindow,
             GRALLOC_USAGE_PRIVATE_CAMERA_HEAP |
             GRALLOC_USAGE_PRIVATE_UNCACHED);
-#else
+/*#else
         mPreviewWindow->set_usage (mPreviewWindow,
             GRALLOC_USAGE_PRIVATE_ADSP_HEAP |
             GRALLOC_USAGE_PRIVATE_UNCACHED);
-#endif
+#endif*/
+
         int CbCrOffset = PAD_TO_WORD(previewWidth * previewHeight);
         int cnt = 0, active = 1;
         int mBufferSize = previewWidth * previewHeight * 3/2;
         for (cnt = 0; cnt < mTotalPreviewBufferCount; cnt++) {
-	            //const native_handle *nh = (native_handle *)malloc (sizeof(native_handle));
-	            buffer_handle_t *bhandle =NULL;// &nh; ;
-	            //buffer_handle_t *bh_handle=&handle;
-	            retVal = mPreviewWindow->dequeue_buffer(mPreviewWindow,
+	        //const native_handle *nh = (native_handle *)malloc (sizeof(native_handle));
+	        buffer_handle_t *bhandle =NULL;// &nh; ;
+	        //buffer_handle_t *bh_handle=&handle;
+	        retVal = mPreviewWindow->dequeue_buffer(mPreviewWindow,
 	                                            &(bhandle),
 	                                            &(stride));
 
@@ -4294,16 +4295,16 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
                       __FUNCTION__, retVal);
                 return retVal;
             }
-			if(retVal == NO_ERROR) {
+	    if(retVal == NO_ERROR) {
                 private_handle_t *handle = (private_handle_t *)(*bhandle);//(private_handle_t *)mPreviewBuffer->handle;
                 LOGE("Handle %p, Fd passed:%d, Base:%p, Size %p",
                 handle,handle->fd,handle->base,handle->size);
 
                 if(handle) {
-
                   //thumbnailHandle = (private_handle_t *)mThumbnailBuffer->handle;
                   LOGV("fd mmap fd %d size %d", handle->fd, handle->size/*thumbnailHandle->size*/);
-                  mPreviewMapped[cnt]= mGetMemory(handle->fd,handle->size,1,mCallbackCookie);
+                  //since MemHeapBase constructor dup-s actual handle, something should be done with it to match that mmap and don't let it fail
+                  mPreviewMapped[cnt]= mGetMemory(/*handle->fd*/-1,handle->size,1,mCallbackCookie);
 
                   if((void *)mPreviewMapped[cnt] == NULL){
                       LOGE(" Failed to get camera memory for  Preview buffer %d ",cnt);
@@ -4336,7 +4337,7 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
                   register_buf(mBufferSize,
                              mBufferSize, CbCrOffset, 0,
                              handle->fd,
-                             0,
+                             cnt*mBufferSize,
                              (uint8_t *)frames[cnt].buffer/*(uint8_t *)mThumbnailMapped*/,
                              MSM_PMEM_PREVIEW,
                              active);
@@ -4597,7 +4598,7 @@ status_t QualcommCameraHardware::startPreviewInternal()
         mOverlayLock.lock();
         //mOverlay = NULL;
         mOverlayLock.unlock();
-        LOGE("startPreview X: native_start_ops: CAMERA_OPS_STREAMING_PREVIEW ioctl failed!");
+        LOGE("startPreview X: native_start_ops: CAMERA_OPS_STREAMING_VIDEO ioctl failed!");
         return UNKNOWN_ERROR;
     }
 
