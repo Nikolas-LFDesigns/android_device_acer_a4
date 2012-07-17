@@ -245,6 +245,8 @@ static UserCallbackInfo * internalRequestTimedCallback
     (RIL_TimedCallback callback, void *param,
         const struct timeval *relativeTime);
 
+static void internalRemoveTimedCallback(void *callbackInfo);
+
 /** Index == requestNumber */
 static CommandInfo s_commands[] = {
 #include "ril_commands.h"
@@ -686,8 +688,6 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
 
     // note we only check status at the end
 
-    simIO.v6.aidPtr = strdupReadString(p);
-
     status = p.readInt32(&t);
     simIO.v6.command = (int)t;
 
@@ -707,6 +707,8 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
 
     simIO.v6.data = strdupReadString(p);
     simIO.v6.pin2 = strdupReadString(p);
+
+    simIO.v6.aidPtr = strdupReadString(p);
 
     startRequest;
     appendPrintBuf("%scmd=0x%X,efid=0x%X,path=%s,%d,%d,%d,%s,pin2=%s,aid=%s", printBuf,
@@ -1928,7 +1930,7 @@ static int responseRilSignalStrength(Parcel &p,
             memset(&p_cur->LTE_SignalStrength, sizeof (RIL_LTE_SignalStrength), 0);
         }
 
-        startResponse;
+       /* startResponse;
         appendPrintBuf("%s[signalStrength=%d,bitErrorRate=%d,\
                 CDMA_SS.dbm=%d,CDMA_SSecio=%d,\
                 EVDO_SS.dbm=%d,EVDO_SS.ecio=%d,\
@@ -1948,7 +1950,7 @@ static int responseRilSignalStrength(Parcel &p,
                 p_cur->LTE_SignalStrength.rsrq,
                 p_cur->LTE_SignalStrength.rssnr,
                 p_cur->LTE_SignalStrength.cqi);
-        closeResponse;
+        closeResponse;*/
 
     } else {
         LOGE("invalid response length");
@@ -3031,18 +3033,34 @@ internalRequestTimedCallback (RIL_TimedCallback callback, void *param,
     return p_info;
 }
 
+static void
+internalRemoveTimedCallback(void *callbackInfo)
+{
+    UserCallbackInfo *p_info;
+    p_info = (UserCallbackInfo *)callbackInfo;
+    LOGI("remove timer callback event");
+    if(p_info) {
+        if (ril_timer_delete(&(p_info->event)))
+                       free(p_info);
+    }
+}
 
-extern "C" void
+extern "C" void *
 RIL_requestTimedCallback (RIL_TimedCallback callback, void *param,
                                 const struct timeval *relativeTime) {
-    internalRequestTimedCallback (callback, param, relativeTime);
+    return internalRequestTimedCallback (callback, param, relativeTime);
+}
+
+extern "C" void
+RIL_removeTimedCallback (void *callbackInfo) {
+    internalRemoveTimedCallback(callbackInfo);
 }
 
 const char *
 failCauseToString(RIL_Errno e) {
     switch(e) {
         case RIL_E_SUCCESS: return "E_SUCCESS";
-        case RIL_E_RADIO_NOT_AVAILABLE: return "E_RAIDO_NOT_AVAILABLE";
+        case RIL_E_RADIO_NOT_AVAILABLE: return "E_RADIO_NOT_AVAILABLE";
         case RIL_E_GENERIC_FAILURE: return "E_GENERIC_FAILURE";
         case RIL_E_PASSWORD_INCORRECT: return "E_PASSWORD_INCORRECT";
         case RIL_E_SIM_PIN2: return "E_SIM_PIN2";
