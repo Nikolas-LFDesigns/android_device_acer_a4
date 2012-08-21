@@ -14,6 +14,7 @@ http://wiki.cyanogenmod.com/wiki/Galaxy_Nexus_(GSM):_Compile_CyanogenMod_(Linux)
 When done, copy whole acer folder to [your CM path(recommended android-ics/system on home)]/device.
 PREPARING BUILD:
 plug in your Metal (make sure that you have latest rom and adb is set up) and fire up extract-files.sh;
+Patch build system with PatchBuild.sh to make some device-specific tweaks;
 then we can continue :)
 To build CM, just follow next instruction:
 in terminal:
