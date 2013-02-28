@@ -158,10 +158,8 @@
 #define MSM_CAMERA_LED_OFF  0
 #define MSM_CAMERA_LED_LOW  1
 #define MSM_CAMERA_LED_HIGH 2
-#if (defined(CONFIG_MACH_ACER_A5) || defined(CONFIG_MACH_ACER_A4)) && defined(CONFIG_ADP1650_FLASH_DRIVER)
 #define MSM_CAMERA_LED_TORCH   3
 #define MSM_CAMERA_LED_RED_EYE 4
-#endif
 
 #define MSM_CAMERA_STROBE_FLASH_NONE 0
 #define MSM_CAMERA_STROBE_FLASH_XENON 1
@@ -486,13 +484,6 @@ struct msm_snapshot_pp_status {
 #define CFG_GET_AF_MAX_STEPS		26
 #define CFG_GET_PICT_MAX_EXP_LC		27
 #define CFG_SEND_WB_INFO    28
-#if defined(CONFIG_MACH_ACER_A5)
-#define CFG_GET_MODULE_WB_INFO	29
-#define CFG_SET_ROTATION	30
-#define CFG_MAX 			31
-#else
-#define CFG_MAX 			29
-#endif
 
 #define MOVE_NEAR	0
 #define MOVE_FAR	1
@@ -518,19 +509,6 @@ struct msm_snapshot_pp_status {
 #define CAMERA_EFFECT_AQUA		8
 #define CAMERA_EFFECT_MAX		9
 
-#if defined(CONFIG_MACH_ACER_A5)
-#define CAMERA_ANTI_BANDING_OFF	0
-#define CAMERA_ANTI_BANDING_60HZ	1
-#define CAMERA_ANTI_BANDING_50HZ	2
-#define CAMERA_ANTI_BANDING_AUTO	3
-#define CAMERA_ANTI_BANDING_MAX	4
-
-#define CAMERA_ROTATION_NORMAL	0
-#define CAMERA_ROTATION_HARIZONTAL	1
-#define CAMERA_ROTATION_VERTICAL	2
-#define CAMERA_ROTATION_180DEG	3
-#define CAMERA_ROTATION_MAX	4
-#endif
 
 struct sensor_pict_fps {
 	uint16_t prevfps;
@@ -562,17 +540,9 @@ struct sensor_cfg_data {
 	int mode;
 	int rs;
 	uint8_t max_steps;
-#if defined(CONFIG_MACH_ACER_A5)
-	uint8_t rolloff_type;
-       struct wb_info_cfg module_wb_info;
-#endif
 
 	union {
 		int8_t effect;
-#if defined(CONFIG_MACH_ACER_A5)
-		int8_t anti_banding;
-		uint16_t rotation;
-#endif
 		uint8_t lens_shading;
 		uint16_t prevl_pf;
 		uint16_t prevp_pl;
