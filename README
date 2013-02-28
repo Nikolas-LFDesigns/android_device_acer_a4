@@ -1,6 +1,6 @@
-ICS Device configuration for the Acer a4 (aka Liquid Metal / Liquid mt)
+Device configuration for the Acer a4 (aka Liquid Metal / Liquid mt)
 
-Copyright (C) 2011-2012 The CyanogenMod Project
+Copyright (C) 2012-2013 The CyanogenMod Project
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -10,8 +10,12 @@ Copyright (C) 2011-2012 The CyanogenMod Project
 
 As start, sync Cyanogen Mod sources like described on
 http://wiki.cyanogenmod.com/wiki/Galaxy_Nexus_(GSM):_Compile_CyanogenMod_(Linux)
+make sure you are using "-b ics" in "repo init" instead of "-b jellybean" or even "-b cm-10.1" described on source sync part.
 
-When done, copy whole acer folder to [your CM path(recommended android-ics/system on home)]/device.
+When done, copy whole acer folder to [your CM path]/device.
+Copy kernel folder to [your CM path]/kernel. Kernel could be found here: https://github.com/Nikolas-LFDesigns/cm_device_a4_kernel/tree/ics. Automatic loading will come later.
+Patch folder comes in cm tree root so that it could determine a working folder without hardcoding it.
+
 PREPARING BUILD:
 plug in your Metal (make sure that you have latest rom and adb is set up) and fire up extract-files.sh;
 Patch build system with PatchBuild.sh to make some device-specific tweaks;
@@ -20,18 +24,6 @@ To build CM, just follow next instruction:
 in terminal:
 cd [your CM path]
 . build/envsetup.sh
-lunch cm_a4-userdebug (brunch is broken for us for now..)
-make -j[number of cores that you have * 2]
+brunch a4
 
-userdebug or higher is recommended to deodex rom.
-
-then, when build is ready, just copy system folder from out/target/product/a4 to dev folder in devicetree.
-find (on any cm-based rom for our device) and place META-INF folder and boot.img file to /dev .
-change updater-script if necessary on respective file on dev folder
-fire up prepare_build.sh to make some cleanups on ready and copied build
-zip system with META-INF and boot.img file to make flashable unsigned zip
-
-Note about htc camera:
-there is a patcher shell script named HTCcampatch.sh. If you want to try something with htc libcamera, 
-apply it first. It will make all necessary changes to sources and set up your tree. 
-To return again to stable library, apply HTCcamrevert.sh with two "y" at prompts(needed in patch-revert mechanics)
+then, when build is ready, you could find it in $OUT dir.
