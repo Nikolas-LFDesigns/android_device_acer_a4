@@ -2506,7 +2506,6 @@ void QualcommCameraHardware::setGpsParameters() {
 bool QualcommCameraHardware::native_set_parms(
     mm_camera_parm_type_t type, uint16_t length, void *value)
 {
-
     LOGV("native_set_parms(%d %d %d)",type,length,*(int *)value);
     if(mCfgControl.mm_camera_set_parm(type,value) != MM_CAMERA_SUCCESS) {
         LOGE("native_set_parms failed: type %d length %d error %s",
@@ -2519,7 +2518,6 @@ bool QualcommCameraHardware::native_set_parms(
 bool QualcommCameraHardware::native_set_parms(
     mm_camera_parm_type_t type, uint16_t length, void *value, int *result)
 {
-
     mm_camera_status_t status;
     status = mCfgControl.mm_camera_set_parm(type,value);
     LOGV("native_set_parms status = %d", status);
@@ -4254,24 +4252,24 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
             return retVal;
         }
 
-//#ifdef USE_ION
+#ifdef USE_ION
         mPreviewWindow->set_usage (mPreviewWindow,
             GRALLOC_USAGE_PRIVATE_CAMERA_HEAP |
             GRALLOC_USAGE_PRIVATE_UNCACHED);
-/*#else
+#else
         mPreviewWindow->set_usage (mPreviewWindow,
             GRALLOC_USAGE_PRIVATE_ADSP_HEAP |
             GRALLOC_USAGE_PRIVATE_UNCACHED);
-#endif*/
+#endif
 
         int CbCrOffset = PAD_TO_WORD(previewWidth * previewHeight);
         int cnt = 0, active = 1;
         int mBufferSize = previewWidth * previewHeight * 3/2;
         for (cnt = 0; cnt < mTotalPreviewBufferCount; cnt++) {
-	        //const native_handle *nh = (native_handle *)malloc (sizeof(native_handle));
-	        buffer_handle_t *bhandle =NULL;// &nh; ;
-	        //buffer_handle_t *bh_handle=&handle;
-	        retVal = mPreviewWindow->dequeue_buffer(mPreviewWindow,
+	            //const native_handle *nh = (native_handle *)malloc (sizeof(native_handle));
+	            buffer_handle_t *bhandle =NULL;// &nh; ;
+	            //buffer_handle_t *bh_handle=&handle;
+	            retVal = mPreviewWindow->dequeue_buffer(mPreviewWindow,
 	                                            &(bhandle),
 	                                            &(stride));
 
@@ -4301,10 +4299,11 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
                 handle,handle->fd,handle->base,handle->size);
 
                 if(handle) {
+
                   //thumbnailHandle = (private_handle_t *)mThumbnailBuffer->handle;
                   LOGV("fd mmap fd %d size %d", handle->fd, handle->size/*thumbnailHandle->size*/);
-                  //since MemHeapBase constructor dup-s actual handle, something should be done with it to match that mmap and don't let it fail
-                  mPreviewMapped[cnt]= mGetMemory(/*handle->fd*/-1,handle->size,1,mCallbackCookie);
+
+                  mPreviewMapped[cnt]= mGetMemory(handle->fd,handle->size,1,mCallbackCookie);
 
                   if((void *)mPreviewMapped[cnt] == NULL){
                       LOGE(" Failed to get camera memory for  Preview buffer %d ",cnt);
@@ -4337,7 +4336,7 @@ status_t QualcommCameraHardware::getBuffersAndStartPreview() {
                   register_buf(mBufferSize,
                              mBufferSize, CbCrOffset, 0,
                              handle->fd,
-                             cnt*mBufferSize,
+                             0,
                              (uint8_t *)frames[cnt].buffer/*(uint8_t *)mThumbnailMapped*/,
                              MSM_PMEM_PREVIEW,
                              active);
@@ -4552,6 +4551,7 @@ status_t QualcommCameraHardware::startPreviewInternal()
                 LOGE("Calling CAMERA_OPS_STREAMING_VIDEO");
                 mCameraRunning = native_start_ops(CAMERA_OPS_STREAMING_VIDEO, NULL);
                 LOGE(": Calling CAMERA_OPS_STREAMING_VIDEO %d", mCameraRunning);
+
  /*       }else {
                 initZslParameter();
                  mCameraRunning = false;
@@ -5593,8 +5593,8 @@ status_t QualcommCameraHardware::setParameters(const CameraParameters& params)
         if ((rc = setFocusMode(params)))    final_rc = rc;
         if ((rc = setBrightness(params)))   final_rc = rc;
         if ((rc = setISOValue(params)))  final_rc = rc;
-        if ((rc = setFocusAreas(params)))  final_rc = rc;
-        if ((rc = setMeteringAreas(params)))  final_rc = rc;
+       // if ((rc = setFocusAreas(params)))  final_rc = rc;
+        //if ((rc = setMeteringAreas(params)))  final_rc = rc;
     }
     //selectableZoneAF needs to be invoked after continuous AF
     if ((rc = setSelectableZoneAf(params)))   final_rc = rc;
@@ -8312,7 +8312,7 @@ status_t QualcommCameraHardware::updateFocusDistances(const char *focusmode)
     LOGE("%s: get CAMERA_PARM_FOCUS_DISTANCES failed!!!", __FUNCTION__);
     return BAD_VALUE;
 }
-
+/*
 status_t QualcommCameraHardware::setMeteringAreas(const CameraParameters& params)
 {
     const char *str = params.get(CameraParameters::KEY_METERING_AREAS);
@@ -8362,6 +8362,7 @@ status_t QualcommCameraHardware::setFocusAreas(const CameraParameters& params)
 
     return NO_ERROR;
 }
+*/
 status_t QualcommCameraHardware::setFocusMode(const CameraParameters& params)
 {
     const char *str = params.get(CameraParameters::KEY_FOCUS_MODE);

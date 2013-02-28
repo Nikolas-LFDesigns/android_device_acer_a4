@@ -44,10 +44,7 @@
 #else
 #include <linux/time.h>
 #endif
-/*< DTS2011041700393 lijianzhao 20110417 begin */
-/* modify for 4125 baseline */
-#include <linux/slab.h>
-/* DTS2011041700393 lijianzhao 20110417 end >*/
+
 #define MSM_CAM_IOCTL_MAGIC 'm'
 
 #define MSM_CAM_IOCTL_GET_SENSOR_INFO \
@@ -161,9 +158,10 @@
 #define MSM_CAMERA_LED_OFF  0
 #define MSM_CAMERA_LED_LOW  1
 #define MSM_CAMERA_LED_HIGH 2
-/* < DTS2011072705129     xiangxu 20110728 begin */
-#define MSM_CAMERA_LED_TORCH 3
-/* DTS2011072705129     xiangxu 20110728 end >  */
+#if (defined(CONFIG_MACH_ACER_A5) || defined(CONFIG_MACH_ACER_A4)) && defined(CONFIG_ADP1650_FLASH_DRIVER)
+#define MSM_CAMERA_LED_TORCH   3
+#define MSM_CAMERA_LED_RED_EYE 4
+#endif
 
 #define MSM_CAMERA_STROBE_FLASH_NONE 0
 #define MSM_CAMERA_STROBE_FLASH_XENON 1
@@ -488,17 +486,13 @@ struct msm_snapshot_pp_status {
 #define CFG_GET_AF_MAX_STEPS		26
 #define CFG_GET_PICT_MAX_EXP_LC		27
 #define CFG_SEND_WB_INFO    28
-/*< DTS2011072801699   songxiaoming 20110728 begin */
-//#define CFG_MAX 			29
-/*lijuan add for AWB OTP*/
-#define CFG_GET_CALIB_DATA 29
-#define CFG_MAX 30
-/* DTS2011072801699   songxiaoming 20110728 end > */
-
-/* < DTS2011090701903 zhangyu 20110907 begin */
-#define CFG_SET_NR          32
-#define CFG_RESET           31
-/* DTS2011090701903 zhangyu 20110907 end > */ 
+#if defined(CONFIG_MACH_ACER_A5)
+#define CFG_GET_MODULE_WB_INFO	29
+#define CFG_SET_ROTATION	30
+#define CFG_MAX 			31
+#else
+#define CFG_MAX 			29
+#endif
 
 #define MOVE_NEAR	0
 #define MOVE_FAR	1
@@ -523,6 +517,20 @@ struct msm_snapshot_pp_status {
 #define CAMERA_EFFECT_BLACKBOARD	7
 #define CAMERA_EFFECT_AQUA		8
 #define CAMERA_EFFECT_MAX		9
+
+#if defined(CONFIG_MACH_ACER_A5)
+#define CAMERA_ANTI_BANDING_OFF	0
+#define CAMERA_ANTI_BANDING_60HZ	1
+#define CAMERA_ANTI_BANDING_50HZ	2
+#define CAMERA_ANTI_BANDING_AUTO	3
+#define CAMERA_ANTI_BANDING_MAX	4
+
+#define CAMERA_ROTATION_NORMAL	0
+#define CAMERA_ROTATION_HARIZONTAL	1
+#define CAMERA_ROTATION_VERTICAL	2
+#define CAMERA_ROTATION_180DEG	3
+#define CAMERA_ROTATION_MAX	4
+#endif
 
 struct sensor_pict_fps {
 	uint16_t prevfps;
@@ -549,34 +557,23 @@ struct wb_info_cfg {
 	uint16_t green_gain;
 	uint16_t blue_gain;
 };
-
-/*< DTS2011072801699   songxiaoming 20110728 begin */
-//lijuan add for AWB OTP
-struct sensor_cilb_cfg{
-
- uint16_t r_over_g;
- uint16_t b_over_g;
- uint16_t gr_over_gb;
- uint16_t macro_2_inf;
-  uint16_t inf_2_macro;
- uint16_t stroke_amt;
-  uint16_t af_pos_1m;
- uint16_t af_pos_inf;
- 
-};
-/* DTS2011072801699   songxiaoming 20110728 end > */
 struct sensor_cfg_data {
 	int cfgtype;
 	int mode;
 	int rs;
 	uint8_t max_steps;
+#if defined(CONFIG_MACH_ACER_A5)
+	uint8_t rolloff_type;
+       struct wb_info_cfg module_wb_info;
+#endif
 
 	union {
 		int8_t effect;
+#if defined(CONFIG_MACH_ACER_A5)
+		int8_t anti_banding;
+		uint16_t rotation;
+#endif
 		uint8_t lens_shading;
-		/* < DTS2011090701903 zhangyu 20110907 begin */
-		uint8_t lut_index;
-		/* DTS2011090701903 zhangyu 20110907 end > */ 
 		uint16_t prevl_pf;
 		uint16_t prevp_pl;
 		uint16_t pictl_pf;
@@ -588,9 +585,6 @@ struct sensor_cfg_data {
 		struct focus_cfg focus;
 		struct fps_cfg fps;
 		struct wb_info_cfg wb_info;
-		/*< DTS2011072801699   songxiaoming 20110728 begin */
-		struct sensor_cilb_cfg calib_info;//lijuan add for AWB OTP
-		/* DTS2011072801699   songxiaoming 20110728 end > */
 	} cfg;
 };
 
@@ -639,3 +633,4 @@ struct msm_camsensor_info {
 	int8_t total_steps;
 };
 #endif /* __LINUX_MSM_CAMERA_H */
+
