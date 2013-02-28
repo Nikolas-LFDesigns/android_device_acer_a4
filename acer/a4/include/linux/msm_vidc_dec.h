@@ -588,4 +588,3 @@ struct vdec_mv_buff_size{
 };
 
 #endif /* end of macro _VDECDECODER_H_ */
-

@@ -12,7 +12,6 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 # Setup device specific product configuration.
 #
 
-TARGET_NO_KERNEL := true
 PRODUCT_NAME := cm_a4  
 PRODUCT_BRAND := acer
 PRODUCT_DEVICE := a4

@@ -136,3 +136,4 @@ void HostapdCLI_PrintCommands();
 int HostapdCLI_RunCommand(const char *ctrl_interface, THostapdCLICmd *pCmd);
 
 #endif /* HOSTAPD_CLI_H */
+

@@ -255,17 +255,18 @@ struct msmfb_writeback_data {
 	struct msmfb_img img;
 };
 
+#ifdef CONFIG_MACH_ACER_A4
 struct dpp_ctrl {
 	/*
-	 *'sharp_strength' has inputs = -128 <-> 127
-	 *  Increasingly positive values correlate with increasingly sharper
-	 *  picture. Increasingly negative values correlate with increasingly
-	 *  smoothed picture.
-	 */
+	*'sharp_strength' has inputs = -128 <-> 127
+	*  Increasingly positive values correlate with increasingly sharper
+	*  picture. Increasingly negative values correlate with increasingly
+	*  smoothed picture.
+	*/
 	int8_t sharp_strength;
 	int8_t hsic_params[NUM_HSIC_PARAM];
 };
-
+#endif
 struct mdp_overlay {
 	struct msmfb_img src;
 	struct mdp_rect src_rect;
@@ -277,7 +278,9 @@ struct mdp_overlay {
 	uint32_t flags;
 	uint32_t id;
 	uint32_t user_data[8];
+#ifdef CONFIG_MACH_ACER_A4
 	struct dpp_ctrl dpp;
+#endif
 };
 
 struct msmfb_overlay_3d {
@@ -293,6 +296,7 @@ struct msmfb_overlay_blt {
 	uint32_t width;
 	uint32_t height;
 	uint32_t bpp;
+	struct msmfb_data data;
 };
 
 struct mdp_histogram {
@@ -427,8 +431,6 @@ struct msmfb_mdp_pp {
 struct mdp_page_protection {
 	uint32_t page_protection;
 };
-
-
 struct mdp_mixer_info {
 	int pndx;
 	int pnum;
@@ -445,6 +447,11 @@ struct msmfb_mixer_info_req {
 	struct mdp_mixer_info info[MAX_PIPE_PER_MIXER];
 };
 
+#ifdef __KERNEL__
 
+/* get the framebuffer physical address information */
+int get_fb_phys_info(unsigned long *start, unsigned long *len, int fb_num);
+
+#endif
 
 #endif /*_MSM_MDP_H_*/

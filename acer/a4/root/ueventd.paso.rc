@@ -23,6 +23,7 @@
 /dev/snd/controlC0  0660   system       audio
 /dev/pmem_smipool*  0660   system       camera
 /dev/oncrpc/*       0777   radio        radio
+/dev/diag           0777   radio        radio
 /dev/smem_log       0777   radio        radio
 /dev/smb380         0660   system       system
 /dev/akm8975_dev    0660   compass      system

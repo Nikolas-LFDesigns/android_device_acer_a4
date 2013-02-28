@@ -1,3 +1,5 @@
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),paso)
+
 LOCAL_PATH:= $(call my-dir)
 
 #
@@ -26,3 +28,5 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_MODULE:=hciattach
 
 include $(BUILD_EXECUTABLE)
+
+endif # TARGET_BOOTLOADER_BOARD_NAME = paso

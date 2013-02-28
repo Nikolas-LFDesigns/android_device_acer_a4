@@ -54,20 +54,6 @@ on post-fs
     chmod 0660 /system/etc/wifi/wpa_supplicant.conf
     chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
 
-    service qmuxd /system/bin/qmuxd
-       class main
-       user root
-       group root qcom_oncrpc
-
-    service netmgrd /system/bin/netmgrd
-       class main
-       user radio
-       group radio
-
-    on property:ro.use_data_netmgrd=false
-        # netmgr not supported on specific target
-       stop netmgrd
-
 on boot
 
 #wpa_supplicant control socket for android wifi.c (android private socket)
@@ -113,6 +99,9 @@ on boot
     chown root radio /dev/oncrpc/30000000:002d0000
     chown root radio /dev/oncrpc/3000000e:00090000
 
+    service qmuxd /system/bin/qmuxd
+       class main
+    
 # performance tweaks for flash
     write /sys/block/mtdblock3/bdi/read_ahead_kb 4
     write /sys/block/mtdblock4/bdi/read_ahead_kb 4
@@ -261,3 +250,13 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     disabled
     oneshot
     keycodes 114 115 116
+
+service netmgrd /system/bin/netmgrd
+    class main
+    user root
+    group system
+
+on property:ro.use_data_netmgrd=false
+   # netmgr not supported on specific target
+   stop netmgrd
+

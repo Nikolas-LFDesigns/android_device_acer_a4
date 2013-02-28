@@ -156,3 +156,4 @@ void aic3254_register_ctl_ops(struct aic3254_ctl_ops *ops);
 void aic3254_set_mode(int config, int mode);
 void aic3254_set_mic_bias(int en);
 #endif /* __SPI_AIC3254_H__*/
+

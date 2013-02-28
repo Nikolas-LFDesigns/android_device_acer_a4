@@ -1,6 +1,7 @@
 /* include/linux/android_pmem.h
  *
  * Copyright (C) 2007 Google, Inc.
+ * Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -135,6 +136,8 @@ int32_t pmem_kfree(const int32_t physaddr);
 struct android_pmem_platform_data
 {
 	const char* name;
+	/* starting physical address of memory region */
+	unsigned long start;
 	/* size of memory region */
 	unsigned long size;
 
@@ -171,6 +174,8 @@ struct android_pmem_platform_data
 	 * indicates that this region should be mapped/unmaped as needed
 	 */
 	int map_on_demand;
+	/* This PMEM is on memory that may be powered off */
+	unsigned unstable;
 };
 
 int pmem_setup(struct android_pmem_platform_data *pdata,

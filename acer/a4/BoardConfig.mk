@@ -4,7 +4,6 @@ USE_CAMERA_STUB := false
 -include vendor/acer/a4/BoardConfigVendor.mk
 
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_KERNEL := true
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_BOARD_PLATFORM := msm7x30
@@ -74,17 +73,27 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 TARGET_SPECIFIC_HEADER_PATH := device/acer/a4/include
 
 #kernel&recovery base
+TARGET_KERNEL_CONFIG := acer_a4_defconfig
 BOARD_KERNEL_CMDLINE := console=null
-BOARD_KERNEL_BASE    := 0x20000000
+BOARD_KERNEL_BASE := 0x20000000
+BOARD_KERNEL_PAGESIZE := 4096
 
-TARGET_PREBUILT_KERNEL := device/acer/a4/kernel
+BOARD_BOOTIMAGE_PARTITION_SIZE     := 0x00500000
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 0x0c640000
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0b900000
+BOARD_FLASH_BLOCK_SIZE := 4096
 
-#BOARD_HAS_NO_SELECT_BUTTON := true
-# Use this flag if the board has a ext4 partition larger than 2gb
-#BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_USES_MMCUTILS := true
+TARGET_RECOVERY_PRE_COMMAND := "touch /cache/recovery/boot;sync;"
+BOARD_HAS_SMALL_RECOVERY := true
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_USES_RECOVERY_CHARGEMODE := false
+BOARD_CUSTOM_GRAPHICS := ../../../device/acer/a4/recovery/graphics.c
+
+BOARD_SDCARD_INTERNAL_DEVICE := /dev/block/mmcblk0p1
 
 # Definition required for Legacy USB storage
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
 
-BOARD_USES_MMCUTILS := true
-BOARD_HAS_NO_MISC_PARTITION := true
+

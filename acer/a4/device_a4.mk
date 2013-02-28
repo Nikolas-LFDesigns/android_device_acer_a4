@@ -9,15 +9,6 @@ $(call inherit-product, build/target/product/full_base.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/acer/a4/overlay
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/acer/a4/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
-
 $(call inherit-product, device/acer/a4/a4.mk)
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
 

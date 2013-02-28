@@ -62,7 +62,7 @@ adb pull /system/lib/libril-acer-1.so ../../../vendor/$MANUFACTURER/$DEVICE/prop
 adb pull /system/lib/libril-acer-qmi-1.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril-acer-qmi-1.so
 adb pull /system/lib/libril-acerril-hook-oem.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril-acerril-hook-oem.so
 adb pull /system/lib/libwms.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwms.so
-adb pull /system/lib/libwmsts.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwmsts.s
+adb pull /system/lib/libwmsts.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwmsts.so
 #-----------------------------------------
 adb pull /system/lib/libgemini.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libgemini.so
 adb pull /system/lib/libmmipl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmmipl.so
