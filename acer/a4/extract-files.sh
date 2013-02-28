@@ -57,13 +57,17 @@ adb pull /system/lib/libqueue.so ../../../vendor/$MANUFACTURER/$DEVICE/proprieta
 adb pull /system/lib/libqdp.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libqdp.so
 adb pull /system/lib/libqmi.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libqmi.so
 adb pull /system/lib/libqmiservices.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libqmiservices.so
-# uncomment libril to use a proprietary one instead of building from source 
-#adb pull /system/lib/libril.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril.so
+adb pull /system/lib/libril.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril.so
 adb pull /system/lib/libril-acer-1.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril-acer-1.so
 adb pull /system/lib/libril-acer-qmi-1.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril-acer-qmi-1.so
 adb pull /system/lib/libril-acerril-hook-oem.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libril-acerril-hook-oem.so
 adb pull /system/lib/libwms.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwms.so
-adb pull /system/lib/libwmsts.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwmsts.so
+adb pull /system/lib/libwmsts.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libwmsts.s
+#-----------------------------------------
+adb pull /system/lib/libgemini.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libgemini.so
+adb pull /system/lib/libmmipl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmmipl.so
+adb pull /system/lib/libmmjpeg.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libmmjpeg.so
+adb pull /system/lib/liboemcamera.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/liboemcamera.so
 #-----------------------------------------
 adb pull /system/lib/hw/sensors.paso.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/sensors.paso.so
 #-----------------------------------------
@@ -109,7 +113,8 @@ adb pull /system/bin/qmuxd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/qmu
 # uncomment libril to use a proprietary one instead of building from source 
 PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/libaudioalsa.so:obj/lib/libaudioalsa.so \\
-#    vendor/acer/__DEVICE__/proprietary/libril.so:/obj/lib/libril.so
+    vendor/acer/__DEVICE__/proprietary/libmmjpeg.so:/obj/lib/libmmjpeg.so \\
+    vendor/acer/__DEVICE__/proprietary/libril.so:/obj/lib/libril.so
 
 # All the blobs necessary for paso
 PRODUCT_COPY_FILES += \\
@@ -159,7 +164,13 @@ PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/libril-acerril-hook-oem.so:/system/lib/libril-acerril-hook-oem.so \\
     vendor/acer/__DEVICE__/proprietary/libwms.so:/system/lib/libwms.so \\
     vendor/acer/__DEVICE__/proprietary/libwmsts.so:/system/lib/libwmsts.so \\
-#    vendor/acer/__DEVICE__/proprietary/libril.so:/system/lib/libril.so
+    vendor/acer/__DEVICE__/proprietary/libril.so:/system/lib/libril.so
+
+PRODUCT_COPY_FILES += \\
+    vendor/acer/__DEVICE__/proprietary/libgemini.so:/system/lib/libgemini.so \\
+    vendor/acer/__DEVICE__/proprietary/libmmipl.so:/system/lib/libmmipl.so \\
+    vendor/acer/__DEVICE__/proprietary/libmmjpeg.so:/system/lib/libmmjpeg.so \\
+    vendor/acer/__DEVICE__/proprietary/liboemcamera.so:/system/lib/liboemcamera.so \\
 # hw libs
 PRODUCT_COPY_FILES += \\
     vendor/acer/__DEVICE__/proprietary/sensors.paso.so:/system/lib/hw/sensors.paso.so \\
