@@ -29,12 +29,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=0
 
 # The gps config appropriate for this device
-#PRODUCT_COPY_FILES += \
-#    device/acer/a4/prebuilt/gps.conf:system/etc/gps.conf
+PRODUCT_COPY_FILES += \
+    device/acer/a4/proprietary/gps.conf:system/etc/gps.conf
 
 PRODUCT_COPY_FILES += \
     device/acer/a4/init.paso.rc:root/init.paso.rc \
-    device/acer/a4/init.paso.usb.rc:root/init.paso.usb.rc \
     device/acer/a4/init.paso.sh:root/init.paso.sh \
     device/acer/a4/init.paso.post_boot.sh:root/init.paso.post_boot.sh \
     device/acer/a4/ueventd.paso.rc:root/ueventd.paso.rc
@@ -47,6 +46,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.networklocation=1 \
     ro.com.google.gmsversion=2.2_r5 \
     ro.setupwizard.enable_bypass=1 \
+    ro.telephony.ril_class=lgeqcom \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
@@ -70,20 +70,13 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/media_profiles.xml:system/etc/media_profiles.xml
-# wifi & tethering custom configs
-PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/hostapd.conf:/system/etc/wifi/hostapd.conf \
-    device/acer/a4/prebuilt/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
+    device/acer/a4/proprietary/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PACKAGES += \
     librs_jni \
     lights.paso \
+    gralloc.msm7x30 \
     overlay.default \
-    audio_policy.msm7x30 \
-    audio.primary.msm7x30 \
-    libcamera \
-    camera.msm7x30 \
     gps.paso \
     libOmxCore \
     libOmxVenc \
@@ -93,65 +86,55 @@ PRODUCT_PACKAGES += \
     libreference-ril \
     libloc_api-rpc
 
-# Video
-PRODUCT_PACKAGES += \
-    copybit.msm7x30 \
-    gralloc.msm7x30 \
-    hwcomposer.msm7x30 \
-    libgenlock \
-    libmemalloc \
-    libQcomUI \
-    libtilerenderer \
-    liboverlay
-
-#Touchscreen and keyboard-related ICS stuff
+#Custom wifi configurations
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/cypress-ts.idc:system/usr/idc/cypress-ts.idc \
-    device/acer/a4/prebuilt/qwerty.idc:system/usr/keylayout/qwerty.idc
-
-#Desire Z EGL
-PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/egl/eglsubAndroid.so:/system/lib/egl/eglsubAndroid.so \
-    device/acer/a4/prebuilt/egl/libEGL_adreno200.so:/system/lib/egl/libEGL_adreno200.so \
-    device/acer/a4/prebuilt/egl/libGLESv1_CM_adreno200.so:/system/lib/egl/libGLESv1_CM_adreno200.so \
-    device/acer/a4/prebuilt/egl/libGLESv2_adreno200.so:/system/lib/egl/libGLESv2_adreno200.so \
-    device/acer/a4/prebuilt/egl/libq3dtools_adreno200.so:/system/lib/egl/libq3dtools_adreno200.so \
-    device/acer/a4/prebuilt/egl/libsc-a2xx.so:/system/lib/libsc-a2xx.so \
-    device/acer/a4/prebuilt/egl/libgsl.so:/system/lib/libgsl.so 
-
-#libs needed for camera
-$(call inherit-product, device/acer/a4/prebuilt/camera/camera.mk)
-#patch will add a new camera.mk at camera-htc folder
-#it will replace original camera.mk at runtime so build could use desire z libs instead of stock
-$(call inherit-product-if-exists, device/acer/a4/prebuilt/camera-htc/camera.mk)
+    device/acer/a4/proprietary/hostapd.conf:/system/etc/wifi/hostapd.conf \
+    device/acer/a4/proprietary/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
+    device/acer/a4/proprietary/wlan_tool:/system/bin/wlan_tool
 
 #Wifi Firmware
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/modules/ar6000.ko:system/wifi/ar6000.ko \
-    device/acer/a4/prebuilt/firmware/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 \
-    device/acer/a4/prebuilt/firmware/athtcmd_ram.bin:system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin  \
-    device/acer/a4/prebuilt/firmware/bdata.SD31_1.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31_1.bin  \
-    device/acer/a4/prebuilt/firmware/bdata.SD31.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin  \
-    device/acer/a4/prebuilt/firmware/bdata.SD31_2.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31_2.bin  \
-    device/acer/a4/prebuilt/firmware/data.patch.bin:system/wifi/ath6k/AR6003/hw2.0/data.patch.bin \
-    device/acer/a4/prebuilt/firmware/otp.bin.z77:system/wifi/ath6k/AR6003/hw2.0/otp.bin.z77 \
-    device/acer/a4/prebuilt/firmware/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77
+    device/acer/a4/proprietary/modules/ar6000.ko:system/wifi/ar6000.ko \
+    device/acer/a4/proprietary/firmware/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77 \
+    device/acer/a4/proprietary/firmware/athtcmd_ram.bin:system/wifi/ath6k/AR6003/hw2.0/athtcmd_ram.bin  \
+    device/acer/a4/proprietary/firmware/bdata.SD31_1.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31_1.bin  \
+    device/acer/a4/proprietary/firmware/bdata.SD31.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31.bin  \
+    device/acer/a4/proprietary/firmware/bdata.SD31_2.bin:system/wifi/ath6k/AR6003/hw2.0/bdata.SD31_2.bin  \
+    device/acer/a4/proprietary/firmware/data.patch.bin:system/wifi/ath6k/AR6003/hw2.0/data.patch.bin \
+    device/acer/a4/proprietary/firmware/otp.bin.z77:system/wifi/ath6k/AR6003/hw2.0/otp.bin.z77 \
+    device/acer/a4/proprietary/firmware/athwlan.bin.z77:system/wifi/ath6k/AR6003/hw2.0/athwlan.bin.z77
 #Firmware
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/firmware/vidc_720p_command_control.fw:system/etc/firmware/vidc_720p_command_control.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_h263_dec_mc.fw:system/etc/firmware/vidc_720p_h263_dec_mc.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_h264_dec_mc.fw:system/etc/firmware/vidc_720p_h264_dec_mc.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_h264_enc_mc.fw:system/etc/firmware/vidc_720p_h264_enc_mc.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_mp4_dec_mc.fw:system/etc/firmware/vidc_720p_mp4_dec_mc.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_mp4_enc_mc.fw:system/etc/firmware/vidc_720p_mp4_enc_mc.fw \
-    device/acer/a4/prebuilt/firmware/vidc_720p_vc1_dec_mc.fw:system/etc/firmware/vidc_720p_vc1_dec_mc.fw \
-    device/acer/a4/prebuilt/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-    device/acer/a4/prebuilt/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+    device/acer/a4/proprietary/firmware/vidc_720p_command_control.fw:system/etc/firmware/vidc_720p_command_control.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_h263_dec_mc.fw:system/etc/firmware/vidc_720p_h263_dec_mc.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_h264_dec_mc.fw:system/etc/firmware/vidc_720p_h264_dec_mc.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_h264_enc_mc.fw:system/etc/firmware/vidc_720p_h264_enc_mc.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_mp4_dec_mc.fw:system/etc/firmware/vidc_720p_mp4_dec_mc.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_mp4_enc_mc.fw:system/etc/firmware/vidc_720p_mp4_enc_mc.fw \
+    device/acer/a4/proprietary/firmware/vidc_720p_vc1_dec_mc.fw:system/etc/firmware/vidc_720p_vc1_dec_mc.fw \
+    device/acer/a4/proprietary/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+    device/acer/a4/proprietary/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+#froyo camera implementation
+PRODUCT_COPY_FILES += \
+    device/acer/a4/proprietary/liboemcamera.so:obj/lib/liboemcamera.so \
+    device/acer/a4/proprietary/liboemcamera.so:system/lib/liboemcamera.so \
+    device/acer/a4/proprietary/libmmjpeg.so:/system/lib/libmmjpeg.so \
+    device/acer/a4/proprietary/libmmipl.so:/system/lib/libmmipl.so \
+    device/acer/a4/proprietary/libgemini.so:/system/lib/libgemini.so \
+
 
 # a4 uses high-density artwork where available
-PRODUCT_LOCALES += en
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-    device/acer/a4/prebuilt/vold.fstab:system/etc/vold.fstab
+    device/acer/a4/proprietary/vold.fstab:system/etc/vold.fstab
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
+#PRODUCT_COPY_FILES += \
+#    device/acer/a4/proprietary/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
+#    device/acer/a4/proprietary/modules/oprofile.ko:system/lib/modules/oprofile.ko \
+#    device/acer/a4/proprietary/modules/reset_modem.ko:system/lib/modules/reset_modem.ko \
+#    device/acer/a4/proprietary/modules/sch_dsmark.ko:system/lib/modules/sch_dsmark.ko \
+#    device/acer/a4/proprietary/modules/tun.ko:system/lib/modules/tun.ko

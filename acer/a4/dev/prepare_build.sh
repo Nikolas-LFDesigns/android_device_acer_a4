@@ -1,15 +1,13 @@
 #replacing some stuff
 cp updater-script ./META-INF/com/google/android/updater-script
+cp -rf ./lib ./system
 mkdir ./system/sd
 touch ./system/sd/placeholder
 #linked binaries
 rm ./system/bin/cat
-rm ./system/bin/chmod
-rm ./system/bin/chown
 rm ./system/bin/cmp
 rm ./system/bin/date
 rm ./system/bin/dd
-rm ./system/bin/df
 rm ./system/bin/dmesg
 rm ./system/bin/getevent
 rm ./system/bin/getprop
@@ -21,24 +19,16 @@ rm ./system/bin/insmod
 rm ./system/bin/ioctl
 rm ./system/bin/ionice
 rm ./system/bin/kill
-rm ./system/bin/ln
 rm ./system/bin/log
-rm ./system/bin/ls
 rm ./system/bin/lsmod
-rm ./system/bin/lsof
-rm ./system/bin/mkdir
-rm ./system/bin/mount
-rm ./system/bin/mv
 rm ./system/bin/nandread
 rm ./system/bin/netstat
 rm ./system/bin/newfs_msdos
 rm ./system/bin/notify
 rm ./system/bin/printenv
 rm ./system/bin/ps
-rm ./system/bin/r
 rm ./system/bin/reboot
 rm ./system/bin/renice
-rm ./system/bin/rm
 rm ./system/bin/rmdir
 rm ./system/bin/rmmod
 rm ./system/bin/route
@@ -46,15 +36,12 @@ rm ./system/bin/schedtop
 rm ./system/bin/sendevent
 rm ./system/bin/setconsole
 rm ./system/bin/setprop
-rm ./system/bin/sh
 rm ./system/bin/sleep
 rm ./system/bin/smd
 rm ./system/bin/start
 rm ./system/bin/stop
 rm ./system/bin/sync
 rm ./system/bin/top
-rm ./system/bin/touch
-rm ./system/bin/umount
 rm ./system/bin/uptime
 rm ./system/bin/vmstat
 rm ./system/bin/watchprops
@@ -69,8 +56,8 @@ rm ./system/xbin/awk
 rm ./system/xbin/base64
 rm ./system/xbin/basename
 rm ./system/xbin/bbconfig
-rm ./system/xbin/blkid
 rm ./system/xbin/blockdev
+rm ./system/xbin/blkid
 rm ./system/xbin/brctl
 rm ./system/xbin/bunzip2
 rm ./system/xbin/bzcat
@@ -134,6 +121,7 @@ rm ./system/xbin/head
 rm ./system/xbin/hexdump
 rm ./system/xbin/id
 rm ./system/xbin/ifconfig
+rm ./system/xbin/inetd
 rm ./system/xbin/insmod
 rm ./system/xbin/install
 rm ./system/xbin/iostat
@@ -233,7 +221,6 @@ rm ./system/xbin/sysctl
 rm ./system/xbin/tac
 rm ./system/xbin/tail
 rm ./system/xbin/tar
-rm ./system/xbin/taskset
 rm ./system/xbin/tee
 rm ./system/xbin/telnet
 rm ./system/xbin/telnetd
@@ -247,6 +234,7 @@ rm ./system/xbin/touch
 rm ./system/xbin/tr
 rm ./system/xbin/traceroute
 rm ./system/xbin/true
+rm ./system/xbin/tty
 rm ./system/xbin/ttysize
 rm ./system/xbin/tune2fs
 rm ./system/xbin/umount

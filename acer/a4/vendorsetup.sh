@@ -22,4 +22,3 @@
 
 add_lunch_combo full_a4-userdebug
 add_lunch_combo full_a4-eng
-add_lunch_combo cm_a4-userdebug

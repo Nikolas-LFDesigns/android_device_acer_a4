@@ -1,27 +1,18 @@
 # Set device permission here
 
-/dev/smdcntl6             0640   radio      radio
-/dev/sdioctl0             0640   radio      radio
-/dev/sdioctl1             0640   radio      radio
-/dev/sdioctl2             0640   radio      radio
-/dev/sdioctl3             0640   radio      radio
-/dev/sdioctl4             0640   radio      radio
-/dev/sdioctl4             0640   radio      radio
-/dev/sdioctl5             0640   radio      radio
-/dev/sdioctl6             0640   radio      radio
-/dev/sdioctl7             0640   radio      radio
+# the DIAG device node is world writable/readable.
+/dev/diag           0666   root         root
 
 # gpu driver for adreno200 is globally accessible
 /dev/kgsl-3d0       0666   root         root
 /dev/kgsl-2d0       0666   root         root
 /dev/kgsl-2d1       0666   root         root
-/dev/genlock        0666   root         root
 
 /dev/msm_rotator    0660   system       graphics
 /dev/msm_a2dp_in    0660   system       audio
 /dev/msm_pcm_out    0660   system       audio
 /dev/snd/controlC0  0660   system       audio
-/dev/pmem_smipool*  0660   system       camera
+/dev/pmem_smipool*  0660   system     camera
 /dev/oncrpc/*       0777   radio        radio
 /dev/smem_log       0777   radio        radio
 /dev/smb380         0660   system       system
@@ -57,5 +48,3 @@
 /dev/msm_preproc_ctl 0660 system       audio
 /dev/msm_a2dp_in    0640  system       audio
 /dev/msm_amrnb_in   0640  system       audio
-
-/dev/msm_camera/*   0666  system       camera

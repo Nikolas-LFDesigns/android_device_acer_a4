@@ -1,0 +1,78 @@
+diff --git a/system/netd/SoftapControllerATH.cpp b/system/netd/SoftapControllerATH.cpp
+index 1373958..746b787 100644
+--- a/system/netd/SoftapControllerATH.cpp
++++ b/system/netd/SoftapControllerATH.cpp
+@@ -317,7 +317,7 @@ int wifi_connect_to_hostapd()
+         return -1;
+     }
+ 
+-    strcpy(iface, "athap0");
++    strcpy(iface, "wl0.1");
+     snprintf(ifname, sizeof(ifname), "%s/%s", IFACE_DIR, iface);
+     LOGD("ifname = %s\n", ifname);
+ 
+@@ -343,11 +343,11 @@ int wifi_connect_to_hostapd()
+              ifname, strerror(errno));
+         return -1;
+     }
+-    if (wpa_ctrl_attach(ctrl_conn) != 0) {
++   /* if (wpa_ctrl_attach(ctrl_conn) != 0) {
+         wpa_ctrl_close(ctrl_conn);
+         ctrl_conn = NULL;
+         return -1;
+-    }
++    }*/
+     return 0;
+ }
+ 
+@@ -456,7 +456,7 @@ int SoftapController::startDriver(char *iface) {
+ 
+ 
+ #ifdef WIFI_MODULE_PATH
+-	ret = insmod(WIFI_MODULE_PATH, "ifname=athap0");
++	ret = insmod(WIFI_MODULE_PATH, "ifname=wl0.1");
+ 	usleep(1000000);
+ #else
+ 	set_wifi_power(0);
+@@ -473,7 +473,7 @@ int SoftapController::startDriver(char *iface) {
+ 			LOGE("failed to get interface name");
+ 			ret = -1;
+ 		}
+-		if (buffer != 'a' && write(fd, "athap0", 6) > 0) {
++		if (buffer != 'w' && write(fd, "wl0.1", 6) > 0) {
+ 			LOGD("interface renamed for AP mode");
+ 			usleep(500000); /* Give it a while after a name change... */
+ 			ret = set_wifi_power(1);
+@@ -580,13 +580,13 @@ int SoftapController::startSoftap() {
+     } else {
+ 
+         ifc_init();
+-        ifc_up("athap0");
++        ifc_up("wl0.1");
+         sleep(1); /* Give the driver time to settle... */
+ 
+         ret = wifi_start_hostapd();
+         if (ret < 0) {
+             LOGE("Softap startap - starting hostapd fails");
+-	    stopDriver("athap0");
++	    stopDriver("wl0.1");
+             return -1;
+         }
+ 
+@@ -616,7 +616,6 @@ int SoftapController::startSoftap() {
+         }
+     }
+     return ret;
+-
+ }
+ 
+ int SoftapController::stopSoftap() {
+@@ -721,7 +720,7 @@ int SoftapController::setSoftap(int argc, char *argv[]) {
+         return -1;
+     }
+     
+-    len = snprintf(buf, sizeof(buf), "interface=athap0\n");
++    len = snprintf(buf, sizeof(buf), "interface=wl0.1\n");
+     write(fd, buf, len);
+     len = snprintf(buf, sizeof(buf), "ctrl_interface=%s\n",IFACE_DIR);
+     write(fd, buf, len);
